@@ -1,0 +1,27 @@
+﻿@model GetAboutDto
+
+<section class="about_section layout_padding">
+    <div class="container  ">
+
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class="img-box">
+                    <img src="@Model.AboutImageUrl" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="detail-box">
+                    <div class="heading_container">
+                        <h2>
+                            @Model.AboutTitle
+                        </h2>
+                    </div>
+                    <p>
+                        @Model.AboutDescription
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

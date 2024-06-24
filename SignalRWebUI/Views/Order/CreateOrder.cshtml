@@ -1,0 +1,49 @@
+﻿@model List<ResultMenuTableDto>
+@{
+    ViewData["Title"] = "CreateOrder";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    string title = "";
+    string color = "";
+}
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        @if (item.TableStatus.Equals(false))
+        {
+            title = "Müsait";
+            color = "card-success";
+        }
+        else
+        {
+            title = "Dolu";
+            color = "card-danger";
+        }
+
+        <div class="col-md-3">
+            <div class="card card-stats @color">
+                <a href="@Url.Action("AddOrder","Order", new {id= item.MenuTableID})">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="la la-inbox"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                    <p class="card-category">@item.TableName</p>
+                                    <h4 class="card-title">@title</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    }
+
+</div>
+

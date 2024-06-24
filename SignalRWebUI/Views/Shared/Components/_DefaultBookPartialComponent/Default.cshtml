@@ -1,0 +1,89 @@
+﻿@model CreateBookingDto
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<section class="book_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2>
+               Rezervasyon Oluştur
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form_container">
+                    <form id ="bookingForm" method="post" asp-action="Book" asp-controller="Default">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                              
+                                @Html.TextBoxFor(m => m.BookingName, new { @class = "form-control input-square", @placeholder = "Ad Soyad", required = "" })
+                            </div>
+                            <div class="form-group">
+                                
+                                @Html.TextBoxFor(m => m.BookingStatus, new { @class = "form-control input-square", @placeholder = "Telefon Numarası", required = "" })
+                            </div>
+
+                            <div class="form-group">
+
+                                @Html.TextBoxFor(m => m.BookingMail, new { @class = "form-control input-square", @placeholder = "Mail", required = "" })
+                            </div>
+                            <div class="form-group">
+                          
+                                <select class="form-control input-square" asp-for="BookingPhone">
+                                   <option value="" disabled selected> Kişi Sayısı </option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                   
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                               
+                                @Html.TextBoxFor(m => m.BookingDate, new { @type = "datetime-local", @class = "form-control input-square", @placeholder = "Tarih ve Saat", required = "" })
+                            </div>
+
+                            
+                        </div>
+                        <div class="card-action">
+                            <button href="@Url.Action("Create", "Booking")" id="submitBtn" class="btn_box">Oluştur</button>
+                          
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="map_container ">
+                    <div id="googleMap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    document.getElementById('bookingForm').onsubmit = function (event) {
+        event.preventDefault(); // Formun otomatik gönderimini engelle
+
+        Swal.fire({
+            title: 'Rezervasyon Oluştur',
+            text: 'Rezervasyon oluşturmak istediğinizden emin misiniz?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, oluştur!',
+            cancelButtonText: 'Hayır, iptal et'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Kullanıcı onay verdi, formu gönder
+                document.getElementById('bookingForm').submit();
+            }
+        });
+    };
+</script>

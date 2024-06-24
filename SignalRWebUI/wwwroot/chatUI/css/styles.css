@@ -1,0 +1,22 @@
+﻿body {
+    background-color: #f8f9fa;
+}
+
+.chat-box {
+    height: 480px;
+    overflow-y: scroll;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.message-sender {
+    font-weight: bold;
+}
+
+.message-content {
+    margin-left: 10px;
+}

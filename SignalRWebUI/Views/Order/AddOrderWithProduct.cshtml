@@ -1,0 +1,73 @@
+﻿@model CreateOrderDetailDto
+@{
+    ViewData["Title"] = "AddOrderWithProduct";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Ürün Ekle</div>
+        </div>
+        <form method="post" asp-action="AddOrderWithProduct" asp-controller="Order">
+            <div class="card-body">
+
+               
+              
+
+               
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("AddOrderWithProduct", "Order")" class="btn btn-success">Ekle</button>
+                <a href="@Url.Action("Index", "CaseOperaion")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    function showproductid(id, name, price) {
+        var productName = name;
+        var productPrice = price;
+        console.log("showproductid called with id:", id, "name:", name, "price:", price);
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify({
+                ProductID: id,
+                BasketProductCount: 1,
+                BasketTotalPrice: price,
+                MenuTableID: 1
+            }),
+            url: "/Default/AddToBasket/",
+            contentType: 'application/json',
+            success: function (response) {
+                console.log("AJAX request succeeded with response:", response);
+                Swal.fire({
+                    title: 'Başarılı!',
+                    text: response.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log("AJAX request failed with status:", status, "and error:", error);
+                Swal.fire({
+                    title: 'Hata!',
+                    text: 'Ürün sepete eklenirken bir hata oluştu.',
+                    icon: 'error',
+                    showConfirmButton: true
+                });
+                console.log("Error: " + error);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            }
+        });
+    }
+
+</script>
+
+

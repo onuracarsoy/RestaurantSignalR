@@ -1,0 +1,60 @@
+﻿@model List<ResultNotificationDto>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 0;
+}
+
+<div class="col-md-20">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title">Bildirimler</div>
+		</div>
+		<a href="@Url.Action("AllNotificationStatusChangeToTrue", "Notification")" class="btn btn-primary btn-sm">Tümünü Okundu Olarak İşaretle</a>
+		<div class="card-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Bildirim</th>
+						<th scope="col">Açıklama</th>
+						<th scope="col">Tarih</th>
+						<th scope="col">Durum</th>
+						<th scope="col">Okundu Olarak İşaretle</th>
+						<th scope="col">Sil</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						count++;
+						<tr>
+							<td>@count</td>
+							<td> <div class="@item.NotificationType"><i class="@item.NotificationIcon"></i></div></td>
+							<td>@item.NotificationDescription</td>
+							<td>@item.NotificationDate.ToString("dd.MM.yyyy HH:mm:ss")</td>
+							<td>
+								@if (item.NotificationStatus.Equals(true))
+								{
+									<p class="text-success">Okundu</p>
+								}
+								else
+								{
+									<p class="text-danger">Okunmadı</p>
+								}
+							</td>
+							<td>
+								<a href="@Url.Action("NotificationStatusChangeToTrue", "Notification", new { id = item.NotificationID})" class="btn btn-primary btn-sm">Okundu</a>
+							</td>
+							<td>
+								<a href="@Url.Action("Delete", "Notification", new { id = item.NotificationID})" class="btn btn-danger btn-sm">Sil</a>
+							</td>
+						</tr>
+					}
+
+				</tbody>
+			</table>	
+		</div>
+	</div>
+</div>
+

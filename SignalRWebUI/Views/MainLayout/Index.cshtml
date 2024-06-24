@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    @await Component.InvokeAsync("_MainLayoutHeadPartialComponent")
+
+</head>
+
+<body >
+
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="~/feane-1.0.0/images/hero-bg.jpg" alt="">
+        </div>
+        <!-- header section strats -->
+      @await Component.InvokeAsync("_MainLayoutNavbarPartialComponent") 
+        <!-- end header section -->
+
+        <!-- slider section -->
+        @await Component.InvokeAsync("_DefaultSliderPartialComponent")
+        <!-- end slider section -->
+      
+
+    </div>
+
+    <!-- main section -->
+        @RenderBody()
+    <!-- end main section -->
+
+    <!-- footer section -->
+    <footer class="footer_section">
+        @await Component.InvokeAsync("_MainLayoutFooterPartialComponent")
+    </footer>
+    <!-- footer section -->
+    @await Component.InvokeAsync("_MainLayoutScriptPartialComponent")
+</body>
+
+</html>

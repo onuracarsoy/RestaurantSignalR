@@ -1,0 +1,58 @@
+﻿@model List<ResultFeatureDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="col-md-20">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title">Öne Çıkanlar Listesi</div>
+		</div>
+		<div class="card-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Başlık</th>
+						<th scope="col">Açıklama</th>
+						<th scope="col">Durum</th>
+						<th scope="col">Düzenle</th>
+						<th scope="col">Sil</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>@item.FeatureID</td>
+							<td>@item.FeatureTitle</td>
+							<td>@item.FeatureDescription</td>
+							<td>
+								@if (item.FeatureStatus.Equals(true))
+								{
+									<p class="text-success">Aktif</p>
+								}
+								else
+								{
+									<p class="text-danger">Pasif</p>
+								}
+							</td>
+						
+							<td>
+								<a href="@Url.Action("Update", "Feature", new { id = item.FeatureID})" class="btn btn-warning btn-sm">Düzenle</a>
+							</td>
+							<td>
+								<a href="@Url.Action("Delete", "Feature", new { id = item.FeatureID})" class="btn btn-danger btn-sm">Sil</a>
+							</td>
+						</tr>
+					}
+
+				</tbody>
+			</table>
+			<a href="@Url.Action("Create", "Feature")" class="btn btn-primary btn-sm">Ekle</a>
+		</div>
+	</div>
+</div>
+

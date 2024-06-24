@@ -1,0 +1,41 @@
+﻿@model UpdateContactDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">İletişim Düzenle</div>
+        </div>
+        <form method="post" asp-action="Update" asp-controller="Contact">
+            <div class="card-body">
+                @Html.HiddenFor(m => m.ContactID)
+                <div class="form-group">
+                    <label for="squareInput">Adres </label>
+                    @Html.TextBoxFor(m => m.ContactLocation, new { @class = "form-control input-square", @placeholder = "Adres ", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Telefon No </label>
+                    @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control input-square", @placeholder = "Telefon No ", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Mail  </label>
+                    @Html.TextBoxFor(m => m.ContactMail, new { @type = "mail", @class = "form-control input-square", @placeholder = "Mail ", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Açıklama  </label>
+                    @Html.TextAreaFor(m => m.ContactFooterDescription, new { @class = "form-control input-square", @placeholder = "Açıklama ", required = "" })
+                </div>
+               
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("Update", "Contact")" class="btn btn-warning">Düzenle</button>
+                <a href="@Url.Action("Index", "Contact")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+

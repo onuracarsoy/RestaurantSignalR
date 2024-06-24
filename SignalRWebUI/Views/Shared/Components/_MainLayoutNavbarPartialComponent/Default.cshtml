@@ -1,0 +1,44 @@
+﻿<header class="header_section">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="@Url.Action("Index","Default")">
+                <span>
+                    Burger Dünyası
+                </span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  mx-auto ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index","Default")">Ana Sayfa </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Menu","Default")">Menü</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("About","Default")">Hakkımızda</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="@Url.Action("Book","Default")">Rezervasyon <span class="sr-only">(current)</span> </a>
+                    </li>
+                </ul>
+                <div class="user_option">
+      
+
+                    <form class="form-inline">
+                        <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                    <a href="@Url.Action("Index","Basket")" class="order_online">
+                        <i class="fa fa-shopping-basket" aria-hidden="true"></i>  Sepetim
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

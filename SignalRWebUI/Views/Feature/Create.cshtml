@@ -1,0 +1,42 @@
+﻿@model CreateFeatureDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Öne Çıkanlar Ekle</div>
+        </div>
+        <form method="post" asp-action="Create" asp-controller="Feature">
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="squareInput">Başlık </label>
+                    @Html.TextBoxFor(m => m.FeatureTitle, new { @class = "form-control input-square", @placeholder = "Başlık", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Açıklama </label>
+                    @Html.TextAreaFor(m => m.FeatureDescription, new { @class = "form-control input-square", @placeholder = "Açıklama", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareSelect">Durum</label>
+                    <select class="form-control input-square" asp-for="FeatureStatus">
+                        <option value="true">Aktif</option>
+                        <option value="false">Pasif</option>
+
+                    </select>
+                </div>
+               
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("Create", "Feature")" class="btn btn-success">Ekle</button>
+                <a href="@Url.Action("Index", "Feature")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

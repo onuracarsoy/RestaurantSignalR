@@ -1,0 +1,7 @@
+﻿@model List<ResultSocialMediaDto>
+@foreach (var item in Model)
+{
+    <a href="@item.SocialMediaUrl">
+        <i class="@item.SocialMediaIcon" aria-hidden="true"></i>
+    </a>
+}

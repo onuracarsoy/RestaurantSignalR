@@ -1,0 +1,36 @@
+﻿@model CreateCategoryDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Kategori Ekle</div>
+        </div>
+        <form method="post" asp-action="Create" asp-controller="Category">
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="squareInput">Kategori Adı</label>
+                    @Html.TextBoxFor(m => m.CategoryName, new { @class = "form-control input-square", @placeholder = "Kategori Adı", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareSelect">Durum</label>
+                    <select class="form-control input-square" asp-for="CategoryStatus">
+                        <option value="true">Aktif</option>
+                        <option value="false">Pasif</option>
+                       
+                    </select>
+                </div>
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("Create", "Category")" class="btn btn-success">Ekle</button>
+                <a href="@Url.Action("Index", "Category")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+    
+</div>

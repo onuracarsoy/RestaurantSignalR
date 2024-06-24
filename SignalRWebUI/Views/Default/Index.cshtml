@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/MainLayout/Index.cshtml";
+}
+
+
+
+
+
+<!-- offer section -->
+
+
+@await Component.InvokeAsync("_DefaultOfferPartialComponent")
+
+<!-- end offer section -->
+<!-- food section -->
+
+@* 
+@await Component.InvokeAsync("_DefaultMenuPartialComponent") *@
+
+<!-- end food section -->
+<!-- about section -->
+
+@await Component.InvokeAsync("_DefaultAboutPartialComponent")
+
+<!-- end about section -->
+<!-- book section -->
+
+@await Component.InvokeAsync("_DefaultBookPartialComponent")
+<!-- end book section -->
+<!-- client section -->
+@await Component.InvokeAsync("_DefaultTestimonialPartialComponent")
+
+
+<!-- end client section -->
+

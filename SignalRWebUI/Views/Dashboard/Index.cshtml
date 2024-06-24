@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(() => {
+
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7044/SignalRHub").build();
+        $("#connstatus").text(connection.state);
+        connection.start().then(() => {
+            $("#connstatus").text(connection.state);
+            setInterval(() => {
+                connection.invoke("SendCategoryCount");
+                connection.invoke("SendActiveCategoryCount");
+                connection.invoke("SendPassiveCategoryCount");
+                connection.invoke("SendProductCount");
+                connection.invoke("SendActiveProductCount");
+                connection.invoke("SendPassiveProductCount");
+            }, 1000);
+
+        }).catch((err) => {
+            $("#connstatus").text(connection.state);
+            console.error(err.toString());
+
+
+        });
+
+        connection.on("ReceiveCategoryCount", (value) => {
+            $("#categorycount").text(value);
+        });
+
+        connection.on("ReceiveActiveCategoryCount", (value) => {
+            $("#activecategorycount").text(value);
+        });
+
+        connection.on("ReceivePassiveCategoryCount", (value) => {
+            $("#passivecategorycount").text(value);
+        });
+
+        connection.on("ReceiveProductCount", (value) => {
+            $("#productcount").text(value);
+        });
+
+        connection.on("ReceiveActiveProductCount", (value) => {
+            $("#activeproductcount").text(value);
+        });
+
+        connection.on("ReceivePassiveProductCount", (value) => {
+            $("#passiveproductcount").text(value);
+        });
+    });
+
+</script>
+
+<h4 class="page-title">Menü İstatistikleri</h4>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-stats card-warning">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-list"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Toplam Kategori Sayısı</p>
+                            <h4 class="card-title" id="categorycount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-stats card-warning">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-trophy"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Toplam Ürün Sayısı</p>
+                            <h4 class="card-title" id = "productcount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-stats card-success">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-list"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Aktif Kategori Sayısı</p>
+                            <h4 class="card-title" id="activecategorycount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-stats card-success">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-trophy"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Aktif Ürün Sayısı</p>
+                            <h4 class="card-title" id="activeproductcount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-stats card-danger">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-list"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Pasif Kategori Sayısı</p>
+                            <h4 class="card-title" id="passivecategorycount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-stats card-danger">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-trophy"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Pasif Ürün Sayısı</p>
+                            <h4 class="card-title" id="passiveproductcount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+</div>
+
+   
+
+
+

@@ -1,0 +1,58 @@
+﻿@model List<ResultOrdersPaidTodayDto>
+@{
+    ViewData["Title"] = "OrdersPaidToday";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 0;
+}
+
+<div class="col-md-20">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title">Ödenmiş Siparişler</div>
+		</div>
+		<div class="card-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Masa Adı</th>
+						<th scope="col">Sipariş Tarihi</th>
+						<th scope="col">Açıklama</th>
+						<th scope="col">Toplam Tutar</th>
+						<th scope="col">Durum</th>
+						<th scope="col">Detay</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						count++;
+						<tr>
+							<td>@count</td>
+							<td>@item.TableName</td>
+							<td>@item.OrderDate</td>
+							<td>@item.OrderDescription</td>
+							<td>@item.OrderTotalPrice ₺</td>
+							<td>
+								@if (item.OrderStatus.Equals(true))
+								{
+									<p class="text-danger">Ödenmemiş</p>
+								}
+								else
+								{
+									<p class="text-success">Ödenmiş</p>
+								}
+							</td>
+
+							<td><a href="@Url.Action("Index", "OrderDetail", new { id = item.OrderID})" class="btn btn-primary">Detay</a></td>
+							
+						</tr>
+					}
+
+				</tbody>
+			</table>
+		
+		</div>
+	</div>
+</div>
+

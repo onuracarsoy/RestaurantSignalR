@@ -1,0 +1,37 @@
+﻿@model UpdateMenuTableDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Masa Düzenle</div>
+        </div>
+        <form method="post" asp-action="Update" asp-controller="MenuTable">
+            <div class="card-body">
+                @Html.HiddenFor(m => m.MenuTableID)
+                <div class="form-group">
+                    <label for="squareInput">Masa Adı</label>
+                    @Html.TextBoxFor(m => m.TableName, new { @class = "form-control input-square", @placeholder = "Masa Adı", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareSelect">Durum</label>
+                    <select class="form-control input-square" asp-for="TableStatus">
+                        <option value="true">Dolu</option>
+                        <option value="false">Müsait</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("Update", "MenuTable")" class="btn btn-warning">Düzenle</button>
+                <a href="@Url.Action("Index", "MenuTable")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

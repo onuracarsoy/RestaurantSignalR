@@ -1,0 +1,60 @@
+﻿@model List<GetOrderDetailWithOrderDto>
+@{
+	ViewData["Title"] = "GetUnPaidOrderDetail";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 0;	
+	int OrderID = Model[0].OrderID;
+	decimal OrderTotalPrice = 0;
+}
+
+<div class="col-md-20">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title">Sipariş Detayı</div>
+		</div>
+		<div class="card-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Masa Adı</th>
+						<th scope="col">Ürün Adı</th>
+						<th scope="col">Birim Fiyatı</th>
+						<th scope="col">Ürün Sayısı</th>
+						<th scope="col">Toplam</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						
+						count++;
+						OrderTotalPrice += item.TotalPrice;
+						<tr>
+							<td>@count</td>
+							<td>@item.TableName</td>
+							<td>@item.ProductName</td>
+							<td>@item.ProductPrice₺</td>
+							<td>@item.ProductCount</td>
+							<td>@item.TotalPrice ₺</td>
+							
+
+
+						</tr>
+
+						
+					}
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><strong>Toplam Tutar: @OrderTotalPrice ₺</strong></td>
+				</tbody>
+			</table>
+			<a href="@Url.Action("PayOrder", "Order", new { id = OrderID})" class="btn btn-success">Ödemeyi Tamamla</a>
+		</div>
+	</div>
+</div>
+
+

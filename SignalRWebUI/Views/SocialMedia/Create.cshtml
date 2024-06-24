@@ -1,0 +1,38 @@
+﻿@model CreateSocialMediaDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Sosyal Medya Ekle</div>
+        </div>
+        <form method="post" asp-action="Create" asp-controller="SocialMedia">
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="squareInput">Sosyal Medya Adı</label>
+                    @Html.TextBoxFor(m => m.SocialMediaTitle, new { @class = "form-control input-square", @placeholder = "Sosyal Medya Adı", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">İkonu</label>
+                    @Html.TextBoxFor(m => m.SocialMediaIcon, new { @class = "form-control input-square", @placeholder = "İkonu", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Sosyal Medya Bağlantısı</label>
+                    @Html.TextBoxFor(m => m.SocialMediaUrl, new { @class = "form-control input-square", @placeholder = "Sosyal Medya Bağlantısı", required = "" })
+                </div>
+         
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("Create", "SocialMedia")" class="btn btn-success">Ekle</button>
+                <a href="@Url.Action("Index", "SocialMedia")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

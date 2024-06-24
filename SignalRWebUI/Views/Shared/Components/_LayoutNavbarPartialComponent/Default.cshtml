@@ -1,0 +1,121 @@
+﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(() => {
+
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7044/SignalRHub").build();
+        $("#connstatus").text(connection.state);
+        connection.start().then(() => {
+            $("#connstatus").text(connection.state);
+            setInterval(() => {
+                connection.invoke("SendNotificationCountByStatusFalse");
+                connection.invoke("SendGetAllNotificationsByFalse");
+
+            }, 1000);
+
+        }).catch((err) => {
+            $("#connstatus").text(connection.state);
+            console.error(err.toString());
+
+
+        });
+
+        connection.on("ReceiveNotificationCountByStatusFalse", (value) => {
+            $("#notificationcount").text(value);
+        });
+
+        connection.on("ReceiveNotificationCountByStatusFalse", (value) => {
+            $("#notificationcountTitle").text(value);
+        });
+        connection.on("ReceiveGetAllNotificationsByFalse", (value) => {
+            console.log(value);
+            $("#notilist").empty();
+            for (var i = 0; i < value.length; i++) {
+                $("#notilist").append(`<a href="#">
+                                    <div class="${value[i].notificationType}"><i class="${value[i].notificationIcon}"></i></div>
+                            <div class="notif-content">
+                            <span class="block">
+                                ${value[i].notificationDescription}
+                            </span>
+                                    <span class="time">${new Date(value[i].notificationDate).toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: '2-digit' })}
+                                                                ${new Date(value[i].notificationDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                            </div>
+                            </a>
+                            `)
+            };
+        });
+
+
+
+    });
+
+</script>
+
+
+
+<nav class="navbar navbar-header navbar-expand-lg">
+    <div class="container-fluid">
+
+        <form class="navbar-left navbar-form nav-search mr-md-3" action="">
+            <div class="input-group">
+                <input type="text" placeholder="Search ..." class="form-control">
+                <div class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="la la-search search-icon"></i>
+                    </span>
+                </div>
+            </div>
+        </form>
+        <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+         
+            <li class="nav-item dropdown hidden-caret">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="la la-bell"></i>
+                    <span class="notification" id="notificationcount"> </span>
+                </a>
+                <ul class="dropdown-menu notif-box" aria-labelledby="navbarDropdown">
+                    <li>
+                        <div class="dropdown-title"> <i id="notificationcountTitle"></i> Yeni Bildirim Var!</div>
+                    </li>
+                    <li>
+                        <div class="notif-center">
+
+                            <div id="notilist"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="see-all" href="@Url.Action("Index","Notification")"> <strong>Tüm Bildirimleri Gör</strong> <i class="la la-angle-right"></i> </a>
+                    </li>
+                </ul>
+            </li>
+            <a href="@Url.Action("Index","Message")"> <span><i class="text-success fa fa-circle"></i> Canlı Desteğe Bağlan</span></span> </a>
+           @*  <li class="nav-item dropdown">
+              
+                <ul class="dropdown-menu dropdown-user">
+                    <li>
+                        <div class="user-box">
+                            <div class="u-img"><img src="assets/img/profile.jpg" alt="user"></div>
+                            <div class="u-text">
+                                <h4>Hizrian</h4>
+                                <p class="text-muted">hello@themekita.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                            </div>
+                        </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="ti-user"></i> My Profile</a>
+                    <a class="dropdown-item" href="#"></i> My Balance</a>
+                    <a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="ti-settings"></i> Account Setting</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li> *@
+        </ul>
+    </div>
+</nav>

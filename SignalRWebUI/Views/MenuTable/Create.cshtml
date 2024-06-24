@@ -1,0 +1,30 @@
+﻿@model CreateMenuTableDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Masa Ekle</div>
+        </div>
+        <form method="post" asp-action="Create" asp-controller="MenuTable">
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="squareInput">Masa Adı</label>
+                    @Html.TextBoxFor(m => m.TableName, new { @class = "form-control input-square", @placeholder = "Masa Adı", required = "" })
+                </div>
+                
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("Create", "MenuTable")" class="btn btn-success">Ekle</button>
+                <a href="@Url.Action("Index", "MenuTable")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

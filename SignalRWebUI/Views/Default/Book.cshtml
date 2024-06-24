@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Book";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    @await Component.InvokeAsync("_MainLayoutHeadPartialComponent")
+
+</head>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="~/feane-1.0.0/images/hero-bg.jpg" alt="">
+        </div>
+        <!-- header section strats -->
+        @await Component.InvokeAsync("_MainLayoutNavbarPartialComponent")
+
+    </div>
+
+    <!-- about section -->
+    @await Component.InvokeAsync("_DefaultBookPartialComponent")
+    <!-- end main section -->
+    <!-- footer section -->
+    <footer class="footer_section">
+        @await Component.InvokeAsync("_MainLayoutFooterPartialComponent")
+    </footer>
+    <!-- footer section -->
+    @await Component.InvokeAsync("_MainLayoutScriptPartialComponent")
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,55 @@
+﻿@model List<ResultMenuTableDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title">Masa Listesi</div>
+		</div>
+		<div class="card-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Masa Adı</th>
+						<th scope="col">Durum</th>
+						<th scope="col">Düzenle</th>
+						<th scope="col">Sil</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>@item.MenuTableID</td>
+							<td>@item.TableName</td>
+							<td>
+								@if (item.TableStatus.Equals(true))
+								{
+									<p class="text-danger">Dolu</p>
+								}
+								else
+								{
+									<p class="text-success">Müsait</p>
+								}
+							</td>
+							<td>
+								<a href="@Url.Action("Update", "MenuTable", new { id = item.MenuTableID})" class="btn btn-warning btn-sm">Düzenle</a>
+							</td>
+							<td>
+								<a href="@Url.Action("Delete", "MenuTable", new { id = item.MenuTableID})" class="btn btn-danger btn-sm">Sil</a>
+							</td>
+						</tr>
+					}
+
+				</tbody>
+			</table>
+			<a href="@Url.Action("Create", "MenuTable")" class="btn btn-primary btn-sm">Ekle</a>
+		</div>
+	</div>
+</div>
+
+

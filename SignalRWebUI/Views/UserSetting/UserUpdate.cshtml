@@ -1,0 +1,45 @@
+﻿@model UserEditDto
+@{
+    ViewData["Title"] = "UserUpdate";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Kullanıcı Ayarları</div>
+        </div>
+        <form method="post" asp-action="UserUpdate" asp-controller="UserSetting">
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="squareInput">Ad</label>
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input-square", @placeholder = " Ad", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Soyadı </label>
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control input-square", @placeholder = "Soyad", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Kullanıcı Adı</label>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input-square", @placeholder = "Kullanıcı Adı", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Şifre</label>
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control input-square",@Type="password", @placeholder = "Şifre", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Tekrar Şifre</label>
+                    @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control input-square", @Type = "password", @placeholder = "Tekrar Şifre", required = "" })
+                </div>
+                <p style="color:red"> @ViewBag.checkPassword</p>
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("UserUpdate", "UserSetting")" class="btn btn-warning">Güncelle</button>
+                <a href="@Url.Action("Index", "CaseOperation")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+

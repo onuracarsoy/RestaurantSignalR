@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/chatui/css/styles.css" rel="stylesheet" />
+
+
+
+
+
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card mt-6">
+                    <div class="card-header text-center">
+                        <div><i class="text-success fa fa-circle"></i> Canlı Destek</div>
+                        <div class="text-xl-right"> Aktif Sayısı : <i id="activeusercount"></i></div>
+                    </div>
+                    <div class="card-body chat-box" id="chatBox">
+                        <!-- Messages will appear here -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <input type="text" id="messageInput" class="form-control" placeholder="Mesaj">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" id="sendButton"><i class="fa fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7044/SignalRHub")
+            .build();
+
+        connection.on("ReceiveMessage", (user, message) => {
+            const msg = document.createElement("div");
+            msg.classList.add("message");
+            msg.innerHTML = `<span class="message-sender">${user}:</span> <span class="message-content">${message}</span>`;
+            document.getElementById("chatBox").appendChild(msg);
+            document.getElementById("chatBox").scrollTop = document.getElementById("chatBox").scrollHeight;
+        });
+
+        connection.on("ReceiveActiveUser", (value) => {
+            $("#activeusercount").text(value);
+        });
+
+        document.getElementById("sendButton").addEventListener("click", () => {
+            sendMessage();
+        });
+
+        document.getElementById("messageInput").addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault(); 
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = document.getElementById("messageInput").value;
+            if (message.trim() !== "") { 
+                const user = "@ViewBag.username";
+                connection.invoke("SendMessage", user, message).catch(err => console.error(err));
+                document.getElementById("messageInput").value = '';
+            }
+        }
+
+        connection.start().catch(err => console.error(err));
+    })
+
+
+</script>
+</html>
+

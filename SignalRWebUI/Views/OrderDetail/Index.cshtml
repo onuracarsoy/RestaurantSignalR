@@ -1,0 +1,48 @@
+﻿@model List<GetOrderDetailWithOrderDto>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 0;
+}
+
+<div class="col-md-20">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title">Sipariş Detayı</div>
+		</div>
+		<div class="card-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Masa Adı</th>
+						<th scope="col">Ürün Adı</th>
+						<th scope="col">Birim Fiyatı</th>
+						<th scope="col">Ürün Sayısı</th>
+						<th scope="col">Tutar</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						count++;
+						<tr>
+							<td>@count</td>
+							<td>@item.TableName</td>
+							<td>@item.ProductName</td>
+							<td>@item.ProductPrice₺</td>
+							<td>@item.ProductCount</td>
+							<td>@item.TotalPrice ₺</td>
+					
+						
+						</tr>
+						
+					}
+
+				</tbody>
+			</table>
+	
+		</div>
+	</div>
+</div>
+

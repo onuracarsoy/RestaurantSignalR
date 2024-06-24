@@ -1,0 +1,61 @@
+﻿@model UpdateProductDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-20">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Ürün Düzenle</div>
+        </div>
+        <form method="post" asp-action="Update" asp-controller="Product">
+            <div class="card-body">
+                @Html.HiddenFor(m => m.ProductID)
+                <div class="form-group">
+                    <label for="squareInput">Ürün Adı</label>
+                    @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control input-square", placeholder = "Ürün Adı", required="" })
+                </div>
+
+                <div class="form-group">
+                    <label for="squareInput">Açıklama</label>
+
+                    @Html.TextAreaFor(x => x.ProductDescription, new { @class = "form-control input-square", placeholder = "Açıklama", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Kategori</label>
+                    @Html.DropDownListFor(x => x.CategoryID, (IEnumerable<SelectListItem>)ViewBag.Categories, "Kategori Seç", new { @class = "form-control input-square", required = "" })
+
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Fiyat</label>
+                    @Html.TextBoxFor(x => x.ProductPrice, new { @class = "form-control input-square", placeholder = "Fiyat", required = "" })
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Mevcut Resim : </label>
+                    <img src="@Model.ProductImageUrl" width="100" height="100" />
+                </div>
+                <div class="form-group">
+                    <label for="squareInput">Resim</label>
+                    @Html.TextBoxFor(x => x.ProductImageUrl, new { @class = "form-control input-square", placeholder = "Resim", required = "" })
+                </div>
+                <div class="form-group">
+
+                    <label for="squareSelect">Durum</label>
+                    <select class="form-control input-square" asp-for="ProductStatus">
+                        <option value="true">Aktif</option>
+                        <option value="false">Pasif</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="card-action">
+                <button href="@Url.Action("Update", "Product")" class="btn btn-success">Düzenle</button>
+                <a href="@Url.Action("Index", "Product")" class="btn btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
